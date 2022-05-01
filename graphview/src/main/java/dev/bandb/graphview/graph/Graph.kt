@@ -3,8 +3,10 @@ package dev.bandb.graphview.graph
 class Graph {
     private val _nodes = arrayListOf<Node>()
     private val _edges = arrayListOf<Edge>()
+    private val _specialEdges = arrayListOf<SpecialEdge>()
     val nodes: List<Node> = _nodes
     val edges: List<Edge> = _edges
+    val specialEdges: List<SpecialEdge> = _specialEdges
 
     private var isTree = false
 
@@ -45,6 +47,7 @@ class Graph {
 
     fun addEdge(source: Node, destination: Node): Edge {
         val edge = Edge(source, destination)
+
         addEdge(edge)
 
         return edge
@@ -60,6 +63,25 @@ class Graph {
     }
 
     fun addEdges(vararg edges: Edge) = edges.forEach { addEdge(it) }
+
+    fun addSpecialEdge(source: Node, destination: Node): SpecialEdge {
+        val edge = SpecialEdge(source, destination)
+
+        addSpecialEdge(edge)
+
+        return edge
+    }
+
+    fun addSpecialEdge(edge: SpecialEdge) {
+        addNode(edge.source)
+        addNode(edge.destination)
+
+        if (edge !in _specialEdges) {
+            _specialEdges.add(edge)
+        }
+    }
+
+    fun addSpecialEdges(vararg edges: SpecialEdge) = specialEdges.forEach { addSpecialEdge(it) }
 
     fun removeEdge(edge: Edge) = _edges.remove(edge)
 
@@ -97,6 +119,9 @@ class Graph {
 
     fun successorsOf(node: Node) =
         _edges.filter { it.source == node }.map { edge -> edge.destination }
+
+    fun specialSuccessorsOf(node: Node) =
+            _specialEdges.filter { it.source == node }.map { edge -> edge.destination }
 
     fun hasPredecessor(node: Node): Boolean = _edges.any { it.destination == node }
 

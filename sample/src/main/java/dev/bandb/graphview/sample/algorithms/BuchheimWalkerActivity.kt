@@ -34,8 +34,8 @@ class BuchheimWalkerActivity : GraphActivity() {
         val node4 = Node(nodeText)
         val node5 = Node(nodeText)
         val node6 = Node(nodeText)
-        val node8 = Node(nodeText)
         val node7 = Node(nodeText)
+        val node8 = Node(nodeText)
         val node9 = Node(nodeText)
         val node10 = Node(nodeText)
         val node11 = Node(nodeText)
@@ -51,6 +51,10 @@ class BuchheimWalkerActivity : GraphActivity() {
         graph.addEdge(node4, node10)
         graph.addEdge(node4, node11)
         graph.addEdge(node11, node12)
+
+        graph.addSpecialEdge(node8, node12)
+        graph.addSpecialEdge(node3, node10)
+
         return graph
     }
 

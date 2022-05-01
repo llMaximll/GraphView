@@ -1,15 +1,12 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.vanniktech.maven.publish'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -25,12 +22,21 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    namespace 'dev.bandb.graphview'
+
+    publishing {
+        multipleVariants {
+            withSourcesJar()
+            withJavadocJar()
+            allVariants()
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:1.2.0"
-    implementation "androidx.annotation:annotation:1.2.0"
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.annotation:annotation:1.3.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }
